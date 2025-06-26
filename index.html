@@ -1,37 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Peta Interaktif PASUM - Aras 1</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <style>
-    body { margin: 0; padding: 0; }
-    #map { height: 100vh; width: 100vw; }
-  </style>
-</head>
-<body>
-  <div id="map"></div>
+<script>
+  var mapBounds = [[0,0], [702, 1801]]; // Saiz imej: tinggi x lebar (px)
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    // Guna saiz gambar asal anda: tinggi x lebar (px)
-    var mapBounds = [[0, 0], [546, 884]];
+  var map = L.map('map', {
+    crs: L.CRS.Simple,
+    minZoom: -2,
+    maxZoom: 2
+  });
 
-    var map = L.map('map', {
-      crs: L.CRS.Simple,
-      minZoom: -2,
-      maxZoom: 2
-    });
+  var imageUrl = 'test level 1.PNG'; // Guna fail floor plan anda
+  L.imageOverlay(imageUrl, mapBounds).addTo(map);
+  map.fitBounds(mapBounds);
 
-    // Gambar pelan anda
-    var imageUrl = 'level 1.PNG';
-    L.imageOverlay(imageUrl, mapBounds).addTo(map);
-    map.fitBounds(mapBounds);
+  // Marker bilik berdasarkan peta
+  var bilik = [
+    { nama: "DEWAN KULIAH 1", x: 140, y: 200 },
+    { nama: "DEWAN KULIAH 2", x: 160, y: 260 },
+    { nama: "PEJABAT PENERBIT", x: 270, y: 510 },
+    { nama: "MAKMAL BIO 2", x: 330, y: 620 },
+    { nama: "MAKMAL BIO 3", x: 360, y: 730 },
+    { nama: "KOPERASI", x: 410, y: 540 },
+    { nama: "BILIK FAIL", x: 90, y: 970 },
+    { nama: "RUMAH HAIWAN", x: 200, y: 900 },
+    { nama: "BENGKEL PERCETAKAN", x: 240, y: 860 },
+    { nama: "SURAU PASUM", x: 150, y: 1080 },
+    { nama: "DEWAN KULIAH UTAMA (DKU)", x: 620, y: 1250 },
+    { nama: "BT 1", x: 560, y: 1050 },
+    { nama: "BT 2", x: 660, y: 1220 },
+    { nama: "BT 3", x: 580, y: 960 },
+    { nama: "BT 6", x: 600, y: 1120 },
+    { nama: "MAKMAL KIMIA JEPUN", x: 220, y: 1150 },
+    { nama: "MAKMAL BAHASA 1", x: 260, y: 1220 },
+    { nama: "MAKMAL BAHASA 2", x: 280, y: 1270 },
+    { nama: "TNB", x: 380, y: 940 },
+    { nama: "LOBI RPKJ", x: 420, y: 960 },
+  ];
 
-    // Contoh marker bilik
-    L.marker([200, 300]).addTo(map).bindPopup("Bilik A101");
-    L.marker([400, 500]).addTo(map).bindPopup("Makmal Biologi");
-  </script>
-</body>
-</html>
+  bilik.forEach(function(item){
+    L.marker([item.x, item.y])
+      .addTo(map)
+      .bindPopup(item.nama);
+  });
+</script>
