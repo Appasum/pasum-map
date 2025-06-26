@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Peta Interaktif PASUM - Aras 1</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    body { margin: 0; padding: 0; }
+    #map { height: 100vh; width: 100vw; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Guna saiz gambar asal anda: tinggi x lebar (px)
+    var mapBounds = [[0, 0], [546, 884]];
+
+    var map = L.map('map', {
+      crs: L.CRS.Simple,
+      minZoom: -2,
+      maxZoom: 2
+    });
+
+    // Gambar pelan anda
+    var imageUrl = 'level 1.PNG';
+    L.imageOverlay(imageUrl, mapBounds).addTo(map);
+    map.fitBounds(mapBounds);
+
+    // Contoh marker bilik
+    L.marker([200, 300]).addTo(map).bindPopup("Bilik A101");
+    L.marker([400, 500]).addTo(map).bindPopup("Makmal Biologi");
+  </script>
+</body>
+</html>
